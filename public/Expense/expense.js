@@ -1,7 +1,7 @@
 const p = document.getElementById("premium-p");
 async function displayUserUi() {
   try {
-    const response = await fetch("http://localhost:4000/user", {
+    const response = await fetch("http://3.110.169.84:4000/user", {
       method: "GET",
       headers: { Authorization: localStorage.getItem("authToken") },
     });
@@ -22,7 +22,7 @@ async function displayUserUi() {
       rozorpayBtn.addEventListener("click", async (e) => {
         try {
           const response = await fetch(
-            "http://localhost:4000/purchase/premium-membership",
+            "http://3.110.169.84:4000/purchase/premium-membership",
             {
               method: "GET",
               headers: { Authorization: localStorage.getItem("authToken") },
@@ -41,7 +41,7 @@ async function displayUserUi() {
                 console.log(response);
                 // Handle successful payment response
                 const updateTransactionResponse = await fetch(
-                  "http://localhost:4000/purchase/update-transaction-status",
+                  "http://3.110.169.84:4000/purchase/update-transaction-status",
                   {
                     method: "POST",
                     headers: {
@@ -77,7 +77,7 @@ async function displayUserUi() {
           rzp1.on("payment.failed", async function (response) {
             alert(response.error.code);
             const updateTransactionResponse = await fetch(
-              "http://localhost:4000/purchase/update-transaction-status",
+              "http://3.110.169.84:4000/purchase/update-transaction-status",
               {
                 method: "POST",
                 headers: {
@@ -126,7 +126,7 @@ async function getExpenses(page) {
   console.log("currentpage:", page);
   try {
     const response = await fetch(
-      `http://localhost:4000/api/expenses?page=${page}&perpage=${localStorage.getItem(
+      `http://3.110.169.84:4000/api/expenses?page=${page}&perpage=${localStorage.getItem(
         "perpage"
       )}`,
       {
@@ -206,7 +206,7 @@ expenseForm.addEventListener("submit", function handlePostExpense(e) {
     description: e.target.description.value,
     category: e.target.category.value,
   };
-  fetch("http://localhost:4000/api/add-expense", {
+  fetch("http://3.110.169.84:4000/api/add-expense", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -234,7 +234,7 @@ expenseList.addEventListener("click", async (e) => {
     if ((e.target.className = "delete")) {
       // console.log("button is clicked");
       const response = await fetch(
-        `http://localhost:4000/api/expenses/${e.target.parentElement.getAttribute(
+        `http://3.110.169.84:4000/api/expenses/${e.target.parentElement.getAttribute(
           "key"
         )}`,
         {
@@ -258,7 +258,7 @@ expenseList.addEventListener("click", async (e) => {
 async function displayLeaderBoadrd() {
   try {
     const response = await fetch(
-      "http://localhost:4000/purchase/leader-board",
+      "http://3.110.169.84:4000/purchase/leader-board",
       {
         method: "GET",
         headers: { Authorization: localStorage.getItem("authToken") },
@@ -292,7 +292,7 @@ document
   .getElementById("downloadexpense")
   .addEventListener("click", async function download() {
     try {
-      const response = await fetch("http://localhost:4000/user/download", {
+      const response = await fetch("http://3.110.169.84:4000/user/download", {
         method: "GET",
         headers: { Authorization: localStorage.getItem("authToken") },
       });
@@ -315,7 +315,7 @@ const downloadedFilesDiv = document.getElementById("downloaded-files");
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await fetch(
-      "http://localhost:4000/user/downloaded-files",
+      "http://3.110.169.84:4000/user/downloaded-files",
       {
         method: "GET",
         headers: { Authorization: localStorage.getItem("authToken") },
