@@ -2,7 +2,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-// const path = require("path");
+const path = require("path");
 // const fs = require("fs");
 // const morgan = require("morgan");
 const dotenv = require("dotenv");
@@ -33,7 +33,16 @@ const app = express();
 // setup the logger
 // app.use(morgan("combined", { stream: accessLogStream }));
 app.use(helmet());
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self' https://checkout.razorpay.com; "
+  );
+  next();
+});
 
+
+// app.use(express.static(path.join(__dirname, "public")))
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -42,6 +51,13 @@ app.use("/user", userRouter);
 app.use("/api", expenseRouter);
 app.use("/purchase", purchaseRouter);
 app.use("/password", forgetPswRouter);
+
+app.use((req, res)=>{
+  console.log(req.url)
+  res.sendFile(path.join(__dirname, `/public/${req.url}`))
+})
+
+
 
 sequelize
   .sync()
