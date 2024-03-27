@@ -33,13 +33,13 @@ const app = express();
 // setup the logger
 // app.use(morgan("combined", { stream: accessLogStream }));
 app.use(helmet());
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "script-src 'self' https://checkout.razorpay.com; "
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader(
+//     "Content-Security-Policy",
+//     "script-src 'self' https://checkout.razorpay.com; "
+//   );
+//   next();
+// });
 
 
 // app.use(express.static(path.join(__dirname, "public")))
