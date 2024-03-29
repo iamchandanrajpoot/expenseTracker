@@ -42,7 +42,6 @@ app.use((req, res, next) => {
 });
 
 
-// app.use(express.static(path.join(__dirname, "public")))
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
