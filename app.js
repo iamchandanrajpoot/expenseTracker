@@ -30,7 +30,6 @@ const app = express();
 //     flags: "a",
 //   }
 // );
-// setup the logger
 // app.use(morgan("combined", { stream: accessLogStream }));
 app.use(helmet());
 app.use((req, res, next) => {
