@@ -61,6 +61,7 @@ sequelize
   .sync()
   // .sync({force: true})
   .then(() => {
+    console.log("model synced database connected")
     app.listen(process.env.PORT)
   })
   .catch((err) => {
