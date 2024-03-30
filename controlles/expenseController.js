@@ -60,7 +60,7 @@ exports.getExpenses = async (req, res) => {
       res.status(404).json({ message: "No expenses found" });
     }
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).json({ message: "internal server error" });
   }
 };

@@ -2,7 +2,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-// const path = require("path");
+const path = require("path");
 // const fs = require("fs");
 // const morgan = require("morgan");
 const dotenv = require("dotenv");
@@ -30,9 +30,16 @@ const app = express();
 //     flags: "a",
 //   }
 // );
-// setup the logger
 // app.use(morgan("combined", { stream: accessLogStream }));
 app.use(helmet());
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self' https://checkout.razorpay.com; "
+  );
+  next();
+});
+
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -43,12 +50,21 @@ app.use("/api", expenseRouter);
 app.use("/purchase", purchaseRouter);
 app.use("/password", forgetPswRouter);
 
+app.use((req, res)=>{
+  console.log(req.url)
+  res.sendFile(path.join(__dirname, `/public/${req.url}`))
+})
+
+
+
 sequelize
   .sync()
   // .sync({force: true})
   .then(() => {
-    console.log("models synced ");
-    app.listen(process.env.PORT)
+    console.log("model synced database connected")
+    app.listen(process.env.PORT,()=>{
+      console.log(`App is running on http://localhost:${process.env.PORT}`)
+    })
   })
   .catch((err) => {
     console.log(err);
