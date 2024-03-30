@@ -62,7 +62,9 @@ sequelize
   // .sync({force: true})
   .then(() => {
     console.log("model synced database connected")
-    app.listen(process.env.PORT)
+    app.listen(process.env.PORT,()=>{
+      console.log(`App is running on http://localhost:${process.env.PORT}`)
+    })
   })
   .catch((err) => {
     console.log(err);
