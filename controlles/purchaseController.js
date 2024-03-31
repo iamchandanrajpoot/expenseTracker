@@ -15,10 +15,6 @@ exports.purchasePremium = async (req, res) => {
     });
 
     const userInstance = await User.findByPk(req.user.id);
-    if (!userInstance) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
     // Create order
     const createOrderRes = await userInstance.createOrder({
       orderId: order.id,
@@ -82,10 +78,8 @@ exports.getLeaderBoardData = async (req, res) => {
       attributes: ["id", "name", "totalExpense"],
       order: [["totalExpense", "DESC"]],
     });
-
     res.status(200).json(leaderBoardData);
   } catch (error) {
-    // console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

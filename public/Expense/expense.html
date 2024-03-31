@@ -12,27 +12,32 @@
       <div id="logout">Logout</div>
     </header>
 
-    <p id="premium-p"></p>
-    <form id="expense-form">
-      <label for="expendicture">Expendicture</label>
-      <input type="number" name="expendicture" id="expendicture" required />
-      <br /><br />
-      <label for="description">Description</label>
-      <input
-        type="text"
-        name="description"
-        id="description"
-        required
-      /><br /><br />
-      <label for="category">Category</label>
-      <select name="category" id="category">
-        <option value="food">Food</option>
-        <option value="petrol">Petrol</option>
-        <option value="movie">Movie</option>
-        <option value="shoppin">Shopping</option></select
-      ><br /><br />
-      <button type="submit">Add Expense</button>
-    </form>
+    <div id="wrapper">
+      <div id="premium-div">
+        
+      </div>
+
+      <form id="expense-form">
+        <label for="expendicture">Expendicture</label>
+        <input type="number" name="expendicture" id="expendicture" required />
+        <br /><br />
+        <label for="description">Description</label>
+        <input
+          type="text"
+          name="description"
+          id="description"
+          required
+        /><br /><br />
+        <label for="category">Category</label>
+        <select name="category" id="category">
+          <option value="food">Food</option>
+          <option value="petrol">Petrol</option>
+          <option value="movie">Movie</option>
+          <option value="shopping">Shopping</option></select
+        ><br /><br />
+        <button type="submit">Add Expense</button>
+      </form>
+    </div>
 
     <hr />
     <div id="row-per-page-section">
@@ -52,10 +57,16 @@
     </div>
     <div id="leader-board" style="display: none"></div>
 
-    <button id="downloadexpense" style="display: none">Download File</button>
-
     <!-- downloaded files -->
     <div id="downloaded-files"></div>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+      </div>
+    </footer>
+    
     <!-- script -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="./expense.js"></script>

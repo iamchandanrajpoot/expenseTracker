@@ -18,7 +18,7 @@ exports.postRegister = async (req, res) => {
       res.json({ message: "succussfully register" });
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.json({ message: "internal server error" });
   }
 };
@@ -34,13 +34,13 @@ exports.postLogin = async (req, res) => {
         res.status(401).json({ message: "User not authorized" });
       } else {
         jwt.sign(
-          {id: user.id, isPremiumUser: user.isPremiumUser},
-          "secretkey",
+          { id: user.id, isPremiumUser: user.isPremiumUser },
+          process.env.JWT_SECRET_kEY,
           (err, token) => {
             if (!err) {
               res
                 .status(200)
-                .json({ message: "successfully login", token: token});
+                .json({ message: "successfully login", token: token });
             } else {
               res.status(500).json({ message: "error during creatin token" });
             }
@@ -53,13 +53,13 @@ exports.postLogin = async (req, res) => {
   }
 };
 
-exports.getUser = async(req, res)=>{
+exports.getUser = async (req, res) => {
   try {
-  const user =   await User.findByPk(req.user.id);
-  console.log("control comes inside getUser")
-  res.status(200).json(user);
+    const user = await User.findByPk(req.user.id);
+    console.log("control comes inside getUser");
+    res.status(200).json(user);
   } catch (error) {
     // console.log(error);
-    res.status(500).json({message: "internal server error"})
+    res.status(500).json({ message: "internal server error" });
   }
-}
+};

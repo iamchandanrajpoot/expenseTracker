@@ -1,7 +1,7 @@
-const p = document.getElementById("premium-p");
-async function displayUserUi() {
+const premiumDiv = document.getElementById("premium-div");
+document.addEventListener("DOMContentLoaded", async function displayUserUi() {
   try {
-    const response = await fetch("http://3.110.169.84:4000/user", {
+    const response = await fetch("http://localhost:4000/user", {
       method: "GET",
       headers: { Authorization: localStorage.getItem("authToken") },
     });
@@ -9,20 +9,42 @@ async function displayUserUi() {
     console.log(user);
 
     if (user.isPremiumUser) {
-      p.innerHTML =
-        "Your premium user now <button id='leader-board-btn'>Leader Board </button>";
+      premiumDiv.innerHTML = `Your premium user now <br /> <br />
+        <button id='leader-board-btn'>Leader Board </button> <br /><br />
+        <button id="downloadexpense">Download File</button>
+        `;
+
       const leaderBoardBtn = document.getElementById("leader-board-btn");
       leaderBoardBtn.addEventListener("click", displayLeaderBoadrd);
 
-      const downloadexpensebtn = document.getElementById("downloadexpense");
-      downloadexpensebtn.style.display = "block";
+      const downloadBtn = document.getElementById("downloadexpense");
+      downloadBtn.addEventListener("click", async function download() {
+        try {
+          const response = await fetch("http://localhost:4000/user/download", {
+            method: "GET",
+            headers: { Authorization: localStorage.getItem("authToken") },
+          });
+
+          if (response.status === 201) {
+            const data = await response.json();
+            var a = document.createElement("a");
+            console.log(data.fileUrl);
+            a.href = data.fileUrl;
+            a.download = "myexpense.csv";
+            a.click();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      });
     } else {
-      p.innerHTML = '<button id="rozorpay-btn">Purchase Premium</button>';
+      premiumDiv.innerHTML =
+        '<button id="rozorpay-btn">Purchase Premium</button>';
       const rozorpayBtn = document.getElementById("rozorpay-btn");
       rozorpayBtn.addEventListener("click", async (e) => {
         try {
           const response = await fetch(
-            "http://3.110.169.84:4000/purchase/premium-membership",
+            "http://localhost:4000/purchase/premium-membership",
             {
               method: "GET",
               headers: { Authorization: localStorage.getItem("authToken") },
@@ -41,7 +63,7 @@ async function displayUserUi() {
                 console.log(response);
                 // Handle successful payment response
                 const updateTransactionResponse = await fetch(
-                  "http://3.110.169.84:4000/purchase/update-transaction-status",
+                  "http://localhost:4000/purchase/update-transaction-status",
                   {
                     method: "POST",
                     headers: {
@@ -57,11 +79,43 @@ async function displayUserUi() {
                 );
                 const responseData = await updateTransactionResponse.json();
                 console.log(responseData);
-                p.innerHTML =
-                  "Your premium user now <button id='leader-board-btn'>Leader Board </button>";
+                premiumDiv.innerHTML = `Your premium user now <br /> <br />
+                <button id='leader-board-btn'>Leader Board </button> <br /><br />
+                <button id="downloadexpense">Download File</button>
+                `;
+
                 const leaderBoardBtn =
                   document.getElementById("leader-board-btn");
                 leaderBoardBtn.addEventListener("click", displayLeaderBoadrd);
+
+                const downloadBtn = document.getElementById("downloadexpense");
+                downloadBtn.addEventListener(
+                  "click",
+                  async function download() {
+                    try {
+                      const response = await fetch(
+                        "http://localhost:4000/user/download",
+                        {
+                          method: "GET",
+                          headers: {
+                            Authorization: localStorage.getItem("authToken"),
+                          },
+                        }
+                      );
+
+                      if (response.status === 201) {s
+                        const data = await response.json();
+                        var a = document.createElement("a");
+                        console.log(data.fileUrl);
+                        a.href = data.fileUrl;
+                        a.download = "myexpense.csv";
+                        a.click();
+                      }
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }
+                );
                 alert("You are now a premium user");
               } catch (error) {
                 console.error("Error updating transaction status:", error);
@@ -77,7 +131,7 @@ async function displayUserUi() {
           rzp1.on("payment.failed", async function (response) {
             alert(response.error.code);
             const updateTransactionResponse = await fetch(
-              "http://3.110.169.84:4000/purchase/update-transaction-status",
+              "http://localhost:4000/purchase/update-transaction-status",
               {
                 method: "POST",
                 headers: {
@@ -104,12 +158,10 @@ async function displayUserUi() {
   } catch (error) {
     console.log(error);
   }
-}
-
-displayUserUi();
+});
 // -----------------------------------------------
 document.getElementById("perpage").value =
-  localStorage.getItem("perpage") || document.getElementById("perpage").value;
+  localStorage.getItem("perpage") || document.getElementById("perpage").value ;
 
 const perpageElement = document.getElementById("perpage");
 perpageElement.addEventListener("change", function handlePerpageChange(e) {
@@ -119,14 +171,13 @@ perpageElement.addEventListener("change", function handlePerpageChange(e) {
 
 const expenseList = document.getElementById("expense-list");
 
-
 // -----------working----------------------
 async function getExpenses(page) {
   let currentPage = page;
   console.log("currentpage:", page);
   try {
     const response = await fetch(
-      `http://3.110.169.84:4000/api/expenses?page=${page}&perpage=${localStorage.getItem(
+      `http://localhost:4000/api/expenses?page=${page}&perpage=${localStorage.getItem(
         "perpage"
       )}`,
       {
@@ -206,7 +257,7 @@ expenseForm.addEventListener("submit", function handlePostExpense(e) {
     description: e.target.description.value,
     category: e.target.category.value,
   };
-  fetch("http://3.110.169.84:4000/api/add-expense", {
+  fetch("http://localhost:4000/api/add-expense", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -234,7 +285,7 @@ expenseList.addEventListener("click", async (e) => {
     if ((e.target.className = "delete")) {
       // console.log("button is clicked");
       const response = await fetch(
-        `http://3.110.169.84:4000/api/expenses/${e.target.parentElement.getAttribute(
+        `http://localhost:4000/api/expenses/${e.target.parentElement.getAttribute(
           "key"
         )}`,
         {
@@ -258,7 +309,7 @@ expenseList.addEventListener("click", async (e) => {
 async function displayLeaderBoadrd() {
   try {
     const response = await fetch(
-      "http://3.110.169.84:4000/purchase/leader-board",
+      "http://localhost:4000/purchase/leader-board",
       {
         method: "GET",
         headers: { Authorization: localStorage.getItem("authToken") },
@@ -287,35 +338,15 @@ async function displayLeaderBoadrd() {
   }
 }
 
+// document.addEventListener("DOMContentLoaded", () => {
 
-document
-  .getElementById("downloadexpense")
-  .addEventListener("click", async function download() {
-    try {
-      const response = await fetch("http://3.110.169.84:4000/user/download", {
-        method: "GET",
-        headers: { Authorization: localStorage.getItem("authToken") },
-      });
-
-      if (response.status === 201) {
-        const data = await response.json();
-        var a = document.createElement("a");
-        console.log(data.fileUrl);
-        a.href = data.fileUrl;
-        a.download = "myexpense.csv";
-        a.click();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  });
-
+// });
 
 const downloadedFilesDiv = document.getElementById("downloaded-files");
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await fetch(
-      "http://3.110.169.84:4000/user/downloaded-files",
+      "http://localhost:4000/user/downloaded-files",
       {
         method: "GET",
         headers: { Authorization: localStorage.getItem("authToken") },

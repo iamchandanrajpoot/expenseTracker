@@ -17,13 +17,13 @@ exports.forgetPsw = async (req, res) => {
       const info = await transporter.sendMail({
         from: "easeweb1@gmail.com",
         to: email,
-        subject: "fhfkyu ",
-        html: `<p>Click <a href="http://3.110.169.84:4000/password/resetpassword/${token}">here</a> to reset your password.</p>`,
+        subject: "fhfkyu",
+        html: `<p>Click <a href="http://localhost:4000/password/resetpassword/${token}">here</a> to reset your password.</p>`,
       });
       console.log(info);
       return res.send({ email });
     } else {
-      return res.send({ message: "wrong email" });
+      return res.json({ message: "wrong email" });
     }
   } catch (error) {
     // console.log(error);

@@ -9,7 +9,7 @@
         email: e.target.email.value,
         password: e.target.password.value,
       };
-      const response = await fetch("http://3.110.169.84:4000/user/login", {
+      const response = await fetch("http://localhost:4000/user/login", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),

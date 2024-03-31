@@ -8,7 +8,7 @@ registerForm.addEventListener("submit", function handleRegister(e) {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    fetch("http://3.110.169.84:4000/user/register", {
+    fetch("http://localhost:4000/user/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),

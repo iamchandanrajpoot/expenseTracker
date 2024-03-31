@@ -5,7 +5,7 @@ document
     const email = e.target.email.value;
     console.log(email);
     const response = await fetch(
-      "http://3.110.169.84:4000/password/forgotpassword",
+      "http://localhost:4000/password/forgotpassword",
       {
         method: "post",
         headers: { "Content-Type": "application/json" },
