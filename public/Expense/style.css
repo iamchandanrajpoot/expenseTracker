@@ -6,7 +6,7 @@ body{
 
 /* Header styles */
 header {
-  background-color: #007bff;
+  background-color: #191919;
   color: #fff;
   padding: 10px 20px;
   display: flex;
@@ -123,7 +123,7 @@ hr {
 
 /* -----------------footer------ */
 footer {
-  background-color: #007bff;
+  background-color: #191919;
   color: #fff;
   padding: 20px 0;
 }
