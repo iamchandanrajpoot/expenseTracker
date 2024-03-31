@@ -1,0 +1,89 @@
+/* Header styles */
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header div:first-child {
+    font-size: 24px;
+  }
+  
+  header div:last-child {
+    cursor: pointer;
+  }
+  
+  header div:last-child:hover {
+    text-decoration: underline;
+  }
+  
+  /* Expense form styles */
+  #expense-form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="number"],
+  input[type="text"],
+  #category {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  button[type="submit"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  /* Styles for separating line */
+hr {
+    margin-top: 50px;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+  
+  /* Styles for the row per page section */
+  #row-per-page-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  #row-per-page-section label {
+    margin-right: 10px;
+  }
+  
+  #row-per-page-section select {
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  #pagination {
+    font-size: 14px;
+  }
+  
