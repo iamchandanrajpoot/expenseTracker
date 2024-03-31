@@ -38,5 +38,5 @@
   const forgetBtn = document.getElementById("forget-btn");
 
   forgetBtn.addEventListener("click", ()=>{
-    window.location.href = "forgetPsw.html"
+    window.location.href = "../ForgotPsw/forgotPsw.html"
   })

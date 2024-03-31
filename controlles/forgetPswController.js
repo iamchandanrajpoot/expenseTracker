@@ -18,7 +18,7 @@ exports.forgetPsw = async (req, res) => {
         from: "easeweb1@gmail.com",
         to: email,
         subject: "fhfkyu ",
-        html: `<p>Click <a href="http://localhost:4000/password/resetpassword/${token}">here</a> to reset your password.</p>`,
+        html: `<p>Click <a href="http://3.110.169.84:4000/password/resetpassword/${token}">here</a> to reset your password.</p>`,
       });
       console.log(info);
       return res.send({ email });
@@ -26,7 +26,7 @@ exports.forgetPsw = async (req, res) => {
       return res.send({ message: "wrong email" });
     }
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(500).json({ message: "internal server error" });
   }
 };
@@ -54,16 +54,14 @@ exports.resetPassword = async (req, res) => {
             <input name="newpassword" type="password" required></input>
             <button>reset password</button>
         </form>
-       </html>`
-      );
-      }else{
-        res.send({message: "this link is inactive now"})
+       </html>`);
+      } else {
+        res.send({ message: "this link is inactive now" });
       }
     }
   } catch (error) {
     // console.error(error);
-    res.status(500).json({message: "internal server error"})
-
+    res.status(500).json({ message: "internal server error" });
   }
 };
 
