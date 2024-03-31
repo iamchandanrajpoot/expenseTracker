@@ -18,7 +18,7 @@ exports.forgetPsw = async (req, res) => {
         from: "easeweb1@gmail.com",
         to: email,
         subject: "fhfkyu",
-        html: `<p>Click <a href="http://localhost:4000/password/resetpassword/${token}">here</a> to reset your password.</p>`,
+        html: `<p>Click <a href="http://3.110.169.84:4000/password/resetpassword/${token}">here</a> to reset your password.</p>`,
       });
       console.log(info);
       return res.send({ email });
